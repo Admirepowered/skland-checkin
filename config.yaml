@@ -1,0 +1,5 @@
+account_num: 2 #签到用户数量
+account1:
+  cred: "" #登入账号只需要修改这里就行了
+account2:
+  cred: ""
