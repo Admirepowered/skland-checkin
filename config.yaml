@@ -1,5 +1,9 @@
 account_num: 2 #签到用户数量
+pusher: "ftqq"
+token: "123"
 account1:
   cred: "" #登入账号只需要修改这里就行了
+  uid: ""
 account2:
   cred: ""
+  uid: ""
