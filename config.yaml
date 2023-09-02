@@ -1,4 +1,4 @@
-account_num: 0
+account_num: 0#签到账号数量
 pusher: ftqq
 token: '123'
 account1:
