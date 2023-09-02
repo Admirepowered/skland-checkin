@@ -9,9 +9,9 @@ def main():
     if num>0:
         for i in range(0,num):
             #print(config["account"+'{}'.format(i+1)]["uid"],config["account"+'{}'.format(i+1)]["cred"])
-            if config["account"+'{}'.format(i+1)].get('cred') is None:
+            if config["account"+'{}'.format(i+1)].get('cred') is None or config["account"+'{}'.format(i+1)]["cred"]=="":
                 try:
-                    if config["account"+'{}'.format(i+1)].get('token') is None or config["account"+'{}'.format(i+1)]["cred"]=="":
+                    if config["account"+'{}'.format(i+1)].get('token') is None:
                         break
                     cred,uid=tools.get_cred_by_token(config["account"+'{}'.format(i+1)]["token"])
                 
