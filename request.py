@@ -5,10 +5,7 @@ def get_new_session():
 
         http = httpx.Client(timeout=20, transport=httpx.HTTPTransport(retries=10))
         # 当openssl版本小于1.0.2的时候直接进行一个空请求让httpx报错
-        import tools
 
-        if tools.get_openssl_version() <= 102:
-            httpx.get()
     except (TypeError, ModuleNotFoundError):
         import requests
         from requests.adapters import HTTPAdapter
