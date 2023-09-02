@@ -11,7 +11,7 @@ def main():
             #print(config["account"+'{}'.format(i+1)]["uid"],config["account"+'{}'.format(i+1)]["cred"])
             if config["account"+'{}'.format(i+1)].get('cred') is None:
                 try:
-                    if config["account"+'{}'.format(i+1)].get('token') is None:
+                    if config["account"+'{}'.format(i+1)].get('token') is None or config["account"+'{}'.format(i+1)]["cred"]=="":
                         break
                     cred,uid=tools.get_cred_by_token(config["account"+'{}'.format(i+1)]["token"])
                 
