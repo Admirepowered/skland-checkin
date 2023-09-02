@@ -9,8 +9,20 @@ def main():
     if num>0:
         for i in range(0,num):
             #print(config["account"+'{}'.format(i+1)]["uid"],config["account"+'{}'.format(i+1)]["cred"])
+            if config["account"+'{}'.format(i+1)].get('cred') is None:
+                try:
+                    if config["account"+'{}'.format(i+1)].get('token') is None:
+                        break
+                    cred,uid=tools.get_cred_by_token(config["account"+'{}'.format(i+1)]["token"])
+                
+                    config["account"+'{}'.format(i+1)]["cred"]=cred
+                    config["account"+'{}'.format(i+1)]["uid"]=uid
+                except:
+                    print("error")
+            tools.save_config(config)
             status,msg= singin(config["account"+'{}'.format(i+1)]["uid"],config["account"+'{}'.format(i+1)]["cred"])
             data+="uid:"+config["account"+'{}'.format(i+1)]["uid"]+" Status:" +'{}'.format(status)+" mssage:"+msg+"\n"
+        
         print(data)
         if config["pusher"]!="":
             pusher.push(0,data)
