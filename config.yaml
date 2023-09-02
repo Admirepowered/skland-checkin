@@ -1,9 +1,11 @@
-account_num: 2 #签到用户数量
-pusher: "ftqq"
-token: "123"
+account_num: 2
+pusher: ftqq
+token: '123'
 account1:
-  cred: "" #登入账号只需要修改这里就行了
-  uid: ""
+  token: '' # ref获取token: https://arkgacha.kwer.top/ 只填一个token就行
+  cred: ''
+  uid: ''
 account2:
-  cred: ""
-  uid: ""
+  cred: ''
+  uid: ''
+  token: ''
