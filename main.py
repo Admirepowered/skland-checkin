@@ -21,6 +21,8 @@ def main():
                     print("error")
             tools.save_config(config)
             status,msg= singin(config["account"+'{}'.format(i+1)]["uid"],config["account"+'{}'.format(i+1)]["cred"])
+            if status!=0:
+                cred,uid=tools.get_cred_by_token(config["account"+'{}'.format(i+1)]["token"])
             data+="uid:"+config["account"+'{}'.format(i+1)]["uid"]+" Status:" +'{}'.format(status)+" mssage:"+msg+"\n"
         
         print(data)
