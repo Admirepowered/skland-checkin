@@ -34,6 +34,10 @@ def main():
 def singin(uid,cred):
     session=request.get_new_session()
     session.headers["USER_AGENT"] = tools.get_useragent()
+    session.headers["vCode"] = "100001014"
+    session.headers["vName"] = '1.0.1'
+    session.headers["dId"] = 'de9759a5afaa634f'
+    session.headers["platform"] =  '1'
     session.headers["cred"]=cred
     session.headers["Content-Type"]="application/json"
     data= session.post("https://zonai.skland.com/api/v1/game/attendance",json={
