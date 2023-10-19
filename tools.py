@@ -7,6 +7,11 @@ import time
 import hmac
 from urllib import parse
 
+vCode="100001014"
+vName='1.0.1'
+did='de9759a5afaa634f'
+platform='1'
+
 
 def load_config():
     path = os.path.dirname(os.path.realpath(__file__)) + "/config.yaml"
@@ -30,6 +35,14 @@ def save_config(config):
             print("Config保存完毕")
 def get_useragent():
     return "Skland/1.0.1 (com.hypergryph.skland; build:100001014; Android 30; ) Okhttp/4.11.0"
+def set_header(session):
+    session.headers["user-agent"] = get_useragent()
+    session.headers["Content-Type"]="application/json"
+    session.headers["vCode"] = vCode
+    session.headers["vName"] = vName
+    session.headers["dId"] = did
+    session.headers["platform"] =  platform
+
 def get_cred_by_token(token):
     session=request.get_new_session()
     session.headers["user-agent"] = get_useragent()
@@ -71,7 +84,7 @@ def get_cred_by_token(token):
     return cred,t_token
     #,uid
 
-def get_sign_header(url: str,query,sign_token,platform='',did='',vName=''):
+def get_sign_header(url: str,query,sign_token):
     p = parse.urlparse(url)
 
     header_for_sign = {
