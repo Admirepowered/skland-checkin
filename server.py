@@ -11,7 +11,7 @@ def runingtime():
     return int(time.time())
 
 
-def control(time_interval, mod, event, detal):
+def control(time_interval, event, detal):
     last_time = runingtime()
     while True:
         now_time = runingtime()
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     while True:
         t1_stop = threading.Event()
         detal = threading.Event()
-        thread1 = threading.Thread(name='time_check', target=control, args=(time_interval, mod, t1_stop, detal))
+        thread1 = threading.Thread(name='time_check', target=control, args=(time_interval, t1_stop, detal))
         thread1.start()
         try:
             if command(detal):
