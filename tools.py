@@ -58,7 +58,7 @@ def get_cred_by_token(token):
     js=json.loads(ret)
     if js["status"]!=0:
         print("Login Failed"+js["msg"])
-        return ""
+        return "",""
     code=js["data"]["code"]
     #uid=js["data"]["uid"]
     data= session.post("https://zonai.skland.com/api/v1/user/auth/generate_cred_by_code",json={
@@ -70,7 +70,7 @@ def get_cred_by_token(token):
     js=json.loads(ret)
     if js["code"]!=0:
         print(js["message"])
-        return ""
+        return "",""
     cred=js["data"]["cred"]
     session.headers["cred"] = cred
     t_token=js["data"]["token"]
