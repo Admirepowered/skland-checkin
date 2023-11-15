@@ -8,7 +8,7 @@ import hmac
 from urllib import parse
 
 vCode="100001014"
-vName='1.0.1'
+vName='1.4.1'
 did='de9759a5afaa634f'
 platform='1'
 
