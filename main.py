@@ -2,7 +2,7 @@ import tools
 import request
 import json
 import pusher
-
+from tools import sign_url_mapping
 def main():
     config=tools.load_config()
     num =int(config["account_num"])
@@ -33,15 +33,20 @@ def get_cred_and_token(config,i):
     config["account"+'{}'.format(i+1)]["cred"]=cred
     config["account"+'{}'.format(i+1)]["t_token"]=t_token
 
-def do_get(session,url,token):
+def do_get(session,url,token,header={}):
     sign,ts=tools.get_sign_header(url,"",token)
     session.headers["sign"]=sign
     session.headers["timestamp"]=ts
+    for key, value in header.items():
+        session.headers[key] = value
     return session.get(url)
-def do_post(session,url,token,postdata):
-    sign,ts=tools.get_sign_header(url,json.dumps(postdata),token)
+def do_post(session,url,token,postdata,header={}):
+
+    sign,ts=tools.get_sign_header(url, "" if postdata is None else json.dumps(postdata),token)
     session.headers["sign"]=sign
     session.headers["timestamp"]=ts
+    for key, value in header.items():
+        session.headers[key] = value
     return session.post(url,json=postdata)
 
 def singin(uid,cred,token):
@@ -61,12 +66,24 @@ def singin(uid,cred,token):
         list =game['bindingList']
     # list=js["data"]["list"][0]['bindingList']
     # print(list)
+        url = sign_url_mapping.get(game['appCode'])
         for i in range(0,len(list)):
             uid=list[i]["uid"]
-            data=do_post(session,"https://zonai.skland.com/api/v1/game/attendance",token,postdata={
-            "uid":uid,
-            "gameId":list[i]['channelMasterId']
-            })
+            print(f'game:{game}')
+            if game['appCode']=="arknights":
+
+                data=do_post(session,url,token,postdata={
+                "uid":uid,
+                "gameId":list[i]['channelMasterId']
+                })
+            if game['appCode']=="endfield":
+                role = f'3_{list[i]["roles"][0]["roleId"]}_{list[i]["roles"][0]["serverId"]}'
+                print(f'endfiled role:{role}')
+                data=do_post(session,url,token,postdata=None,header={
+                    'referer': 'https://game.skland.com/',
+                    'origin': 'https://game.skland.com/',
+                    'sk-game-role': role,
+                })
             ret = data.text
             js=json.loads(ret)
             message=js["message"]
@@ -80,3 +97,4 @@ def singin(uid,cred,token):
 
 if __name__=="__main__":
     main()
+

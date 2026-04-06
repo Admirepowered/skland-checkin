@@ -12,6 +12,10 @@ vName='1.4.1'
 did=get_d_id()
 platform='1'
 
+sign_url_mapping = {
+    'arknights': 'https://zonai.skland.com/api/v1/game/attendance',
+    'endfield': 'https://zonai.skland.com/web/v1/game/endfield/attendance'
+}
 
 def load_config():
     path = os.path.dirname(os.path.realpath(__file__)) + "/config.yaml"
