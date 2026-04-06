@@ -6,10 +6,10 @@ import hashlib
 import time
 import hmac
 from urllib import parse
-
+from SecuritySm import get_d_id
 vCode="100001014"
 vName='1.4.1'
-did='de9759a5afaa634f'
+did=get_d_id()
 platform='1'
 
 

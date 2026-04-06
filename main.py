@@ -55,24 +55,25 @@ def singin(uid,cred,token):
     js=json.loads(ret)
     if js["code"]!=0:
         return js["code"],js["message"]
-    list=js["data"]["list"][0]['bindingList']
-    print(list)
     code=0
     msg=''
-
-    for i in range(0,len(list)):
-        uid=list[i]["uid"]
-        data=do_post(session,"https://zonai.skland.com/api/v1/game/attendance",token,postdata={
-        "uid":uid,
-        "gameId":list[i]['channelMasterId']
-        })
-        ret = data.text
-        js=json.loads(ret)
-        message=js["message"]
-        if js["code"]!=10001 and js["code"]!=0:
-            code=js["code"]
-            
-        msg+=f'uid: {uid} 状态:{message}\n'
+    for game in js["data"]["list"]:
+        list =game['bindingList']
+    # list=js["data"]["list"][0]['bindingList']
+    # print(list)
+        for i in range(0,len(list)):
+            uid=list[i]["uid"]
+            data=do_post(session,"https://zonai.skland.com/api/v1/game/attendance",token,postdata={
+            "uid":uid,
+            "gameId":list[i]['channelMasterId']
+            })
+            ret = data.text
+            js=json.loads(ret)
+            message=js["message"]
+            if js["code"]!=10001 and js["code"]!=0:
+                code=js["code"]
+                
+            msg+=f'uid: {uid} 状态:{message}\n'
 
     #uid=js["data"]["list"][0]["defaultUid"]
     return code,msg
